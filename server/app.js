@@ -19,11 +19,12 @@ mongoose.connect('mongodb://localhost/Todos-Fancy', { useMongoClient: true })
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/login', login);
+app.use('/api/login', login);
 
 
 module.exports = app;

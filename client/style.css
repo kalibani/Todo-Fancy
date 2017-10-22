@@ -85,7 +85,7 @@ ul li.checked::before {
 
 /* Style the header */
 .header {
-  background-color: #f44336;
+  background-color: grey;
   padding: 30px 40px;
   color: white;
   text-align: center;
@@ -122,4 +122,9 @@ input {
 
 .addBtn:hover {
   background-color: #bbb;
+}
+
+.logout-btn {
+  padding: 12px 28px;
+  background-color: #008CBA;
 }
