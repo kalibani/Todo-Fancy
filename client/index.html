@@ -14,20 +14,16 @@
       <input type="text" id="myInput" placeholder="Title...">
       <span onclick="newElement()" class="addBtn">Add</span>
     </div>
-    <ul id="myUL">
-      <li>Hit the gym</li>
-      <li class="checked">Pay bills</li>
-      <li>Meet George</li>
-      <li>Buy eggs</li>
-      <li>Read a book</li>
-      <li>Organize office</li>
-    </ul>
+    
   </div>
 
   <div class="bgimg w3-display-container w3-text-white">
     <div class="w3-display-middle w3-jumbo">
       <div class="item" id="login-btn">
-        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
+      </div>
+      <div class="item" id="logout-btn" style="display: none">
+        <button class="logout-btn" type="button">Logout</button>
       </div>
     </div>
   </div>
@@ -36,14 +32,31 @@
 </body>
 
   <script>
-    $("#main-container").hide();
+    $(document).ready(function(){
+      if(localStorage.getItem("token")) {
+        $("#main-container").show();
+      } else {
+        $("#main-container").hide();
+      }
+    });
 
     function statusChangeCallback(response) {
       console.log('statusChangeCallback');
-      // console.log(response);
       if (response.status === 'connected') {
-        // Logged into your app and Facebook.
-        console.log(response);
+        $.post('http://localhost:3000/api/login', {
+          accessToken: response.authResponse.accessToken,
+          userId: response.authResponse.userID
+        }, function(response) {
+          localStorage.setItem('token', response);
+          $("#main-container").show();
+        })
+        .fail(function (error) {
+          console.log(error);
+        });
+        $("#login-btn").hide();
+        $("#logout-btn").show();
+      } else {
+        $("#main-container").hide();
       }
     }
 
@@ -52,6 +65,15 @@
         statusChangeCallback(response);
       });
     }
+
+    $("#logout-btn").click(function(){
+      // hapus local storage
+      localStorage.removeItem('token');
+      FB.logout();
+      $(this).hide();
+      $("#login-btn").show();
+      $("#main-container").hide();
+    })
 
     window.fbAsyncInit = function() {
       FB.init({
