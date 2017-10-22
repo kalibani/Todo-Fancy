@@ -12,7 +12,7 @@ let userSchema = new Schema({
   }
 })
 
-let User = mongoose.model('User', bookSchema);
+let User = mongoose.model('User', userSchema);
 
 class Login {
   // static login(req, res){
@@ -32,4 +32,4 @@ class Login {
 }
 
 module.exports = Login;
-'visca el barca!!!'
+// 'visca el barca!!!'
