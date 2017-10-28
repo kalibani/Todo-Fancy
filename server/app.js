@@ -7,8 +7,7 @@ var mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-
-var login = require('./routes/login');
+var user = require('./routes/user');
 
 var app = express();
 mongoose.connect('mongodb://localhost/Todos-Fancy', { useMongoClient: true })
@@ -24,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/api/login', login);
+app.use('/api/login', user);
 
 
 module.exports = app;
