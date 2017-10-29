@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+  <div class="container" id="main-container">
+    <div id="myDIV" class="header">
+      <h2 style="margin:5px">My To Do List</h2>
+      <input type="text" id="myInput" placeholder="Title...">
+      <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+    
+  </div>
+
+  <div class="bgimg w3-display-container w3-text-white">
+    <div class="w3-display-middle w3-jumbo">
+      <div class="item" id="login-btn">
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-use-continue-as="true" scope="public_profile,email" onlogin="checkLoginState();"></div>
+      </div>
+      <div class="item" id="logout-btn" style="display: none">
+        <button class="logout-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+  <script>
+    $(document).ready(function(){
+      if(localStorage.getItem("token")) {
+        $("#main-container").show();
+      } else {
+        $("#main-container").hide();
+      }
+    });
+
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      if (response.status === 'connected') {
+        $.post('http://localhost:3000/api/login', {
+          accessToken: response.authResponse.accessToken,
+          userId: response.authResponse.userID
+        }, function(response) {
+          localStorage.setItem('token', response);
+          $("#main-container").show();
+        })
+        .fail(function (error) {
+          console.log(error);
+        });
+        $("#login-btn").hide();
+        $("#logout-btn").show();
+      } else {
+        $("#main-container").hide();
+      }
+    }
+
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+    $("#logout-btn").click(function(){
+      // hapus local storage
+      localStorage.removeItem('token');
+      FB.logout();
+      $(this).hide();
+      $("#login-btn").show();
+      $("#main-container").hide();
+    })
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : 357648931350956,
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v2.8'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+
+    (function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) return;
+       js = d.createElement(s); js.id = id;
+       js.src = 'https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v2.10&appId=357648931350956';
+       fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'))
+
+
+  </script>
+</html>
