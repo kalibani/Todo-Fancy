@@ -8,10 +8,11 @@ const cors = require('cors');
 require('dotenv').config();
 
 var user = require('./routes/user');
+var todos = require('./routes/todos');
 
 var app = express();
 mongoose.connect('mongodb://localhost/Todos-Fancy', { useMongoClient: true })
-
+mongoose.Promise = global.Promise;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api/login', user);
+app.use('/api/todos', todos);
 
 
 module.exports = app;

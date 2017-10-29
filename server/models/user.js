@@ -24,9 +24,7 @@ class User {
       appId: process.env.FBAPPID,
       appSecret: process.env.FBAPPSECRET
     })
-    console.log(req.body.userId);
     fb.api(req.body.userId, function(response) {
-      console.log(response);
       if (response.error) {
         res.status(400).json(response.error);
       } else {
