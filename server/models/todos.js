@@ -72,7 +72,12 @@ class Todos {
       var id = {
         _id : params.id
       }
-      todo.deleteOne(id)
+      todo.deleteOne(id).then((data) => {
+        resolve(data)
+      })
+      .catch((err) => {
+        reject(err)
+      })
     })
   }
 }
