@@ -2,7 +2,7 @@ const Todo = require('../models/todos');
 
 class Todos {
   static findAll(req, res){
-    Todo.find().then((dataTodo) => { res.status(200).json(dataTodo)})
+    Todo.find().populate('member').then((dataTodo) => { res.status(200).json(dataTodo)})
     .catch((err) => { res.status(404).send(err)})
   }
 

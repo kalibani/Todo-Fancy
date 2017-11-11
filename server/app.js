@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api/login', user);
-app.use('/api/todos', todos);
+app.use('/api', todos);
 
 
 module.exports = app;
