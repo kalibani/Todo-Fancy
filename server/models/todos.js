@@ -5,6 +5,9 @@ let todoSchema = new Schema({
   member:{
     type: Schema.Types.ObjectId, ref: 'dataUser'
   },
+  name:{
+    type: String
+  },
   description:{
     type: String
   },
