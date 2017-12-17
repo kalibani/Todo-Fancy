@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/api/login', user);
+app.use('/api/auth', user);
 app.use('/api', todos);
 
 

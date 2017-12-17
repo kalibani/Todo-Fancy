@@ -1,8 +1,12 @@
-const user = require('../models/user');
+const User = require('../models/users');
 
 class UserCtrl {
-  static login(req, res){
-    user.login(req, res)
+  static login(req, res) {
+    User.login(req, res)
+  }
+
+  static checkUser(req, res, next){
+    User.checkUser(req, res, next)
   }
 
 }
