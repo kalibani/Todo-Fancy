@@ -1,17 +1,18 @@
 <template>
-  <div id="app">
+  <div>
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+
 }
 </script>
 
 <style>
-#app {
-  
+body{
+  background: url('http://rivista-cdn.pittsburghmagazine.com/shutterstock_125978432.jpg?ver=1446147725') fixed;
+  background-size: cover;
 }
 </style>
