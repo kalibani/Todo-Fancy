@@ -138,8 +138,8 @@
       },
 
       doLogout(){
-        FB.logout()
         localStorage.removeItem("token")
+        FB.logout()
       }
     }
   }

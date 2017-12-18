@@ -53,6 +53,7 @@
                     button: 'OK'
                   }).then(() => {
                     self.$router.push('/todo')
+                    location.reload()
                   })
                 }
               }).catch((err) => {
