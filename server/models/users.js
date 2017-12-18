@@ -22,7 +22,7 @@ let User =  mongoose.model('User', userSchema);
 class UserModel {
   static checkUser(req, res, next){
     User.findOne({
-      password: req.body.password
+      email: req.body.email
     }).then((dataUser) => {
       if (!dataUser) {
         let newUser = ({
@@ -32,7 +32,6 @@ class UserModel {
         })
         User.create(newUser)
         .then((data) => {
-          console.log(data);
           next()
         })
         .catch((err) => {
@@ -57,7 +56,7 @@ class UserModel {
         res.status(400).json(response.error);
       } else {
         User.findOne({
-          password: req.body.password
+          email: req.body.email
         }).then((datauser) => {
           var token = jwt.sign({datauser}, 'Visca El Barca');
           res.status(200).json(token);
