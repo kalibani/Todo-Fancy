@@ -46,7 +46,9 @@ class TodoModel {
   }
 
   static findAll(req, res){
-    Todo.find().populate('member').then((dataTodo) => { res.status(200).json(dataTodo)})
+    Todo.find().populate('member').then((dataTodo) => {
+      res.status(200).json(dataTodo)
+    })
     .catch((err) => { res.status(404).send(err)})
   }
 
@@ -71,9 +73,13 @@ class TodoModel {
   }
 
   static updateTodo(req, res) {
-    Todo.findByIdAndUpdate(req.params.id,{$set:req.body})
-    .then((updatedTodo) => {
-      res.json({message: 'Succesfully Updated Todo', updatedTodo})
+    Todo.findById(req.params.id).then((Todo) => {
+      Todo.status = !Todo.status
+      Todo.save().then((updatedTodo) => {
+        res.json({message: 'Succesfully Updated Todo', updatedTodo})
+      }).catch((err) => {
+        res.send(err)
+      })
     }).catch((err) => {
       res.send(err);
     })
