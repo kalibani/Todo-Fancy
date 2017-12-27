@@ -13,7 +13,7 @@ export default new Router({
       component: LoginFb
     },
     {
-      path: '/todo',
+      path: '/:username',
       name: 'todolist',
       component: Todo,
       beforeEnter: (to, from, next) => {

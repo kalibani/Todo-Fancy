@@ -15,13 +15,13 @@ Vue.use(swalPlugin)
 const my_axios = axios.create({
   baseURL: 'http://localhost:3000/api',
   headers:{
-    Authorization : localStorage.getItem('token'),
-    contentType : "application/x-www-form-urlencoded"
+    Authorization : localStorage.getItem('token')
   }
 });
 Vue.prototype.$http = my_axios
 
 Vue.config.productionTip = false
+
 window.fbAsyncInit = function() {
   FB.init({
     appId      : 357648931350956,
@@ -39,7 +39,6 @@ window.fbAsyncInit = function() {
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

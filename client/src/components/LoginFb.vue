@@ -25,6 +25,14 @@
 
 <script>
   export default {
+    beforeCreate(){
+      let token = localStorage.getItem('token')
+      if (token) {
+        this.$router.push('/'+'Kautzar%20Alibani')
+      }else {
+        this.$router.push('/')
+      }
+    },
     methods:{
       loginFb(){
         let self = this
@@ -52,7 +60,7 @@
                     text: 'Login Success!!',
                     button: 'OK'
                   }).then(() => {
-                    self.$router.push('/todo')
+                    self.$router.push('/'+res.name)
                     location.reload()
                   })
                 }

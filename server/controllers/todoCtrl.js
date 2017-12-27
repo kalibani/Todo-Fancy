@@ -18,7 +18,7 @@ class TodoCtrl {
   }
 
   static updateTodo(req, res) {
-    Todo.updateTodo(re, res)
+    Todo.updateTodo(req, res)
   }
 
   static deleteTodo(req, res) {
