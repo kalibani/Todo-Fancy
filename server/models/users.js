@@ -48,8 +48,8 @@ class UserModel {
   static login(req, res){
     let fb = new FB.Facebook({
       accessToken: req.body.accessToken,
-      appId: process.env.FBAPPID,
-      appSecret: process.env.FBAPPSECRET
+      appId: 357648931350956,
+      appSecret: '2bd7a5e3b783224830d2d2c9af68c3d1'
     })
     fb.api(req.body.userId, function(response) {
       if (response.error) {
