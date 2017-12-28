@@ -13,7 +13,7 @@ swalPlugin.install = (Vue) => {
 Vue.use(swalPlugin)
 
 const my_axios = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://todo-server.kautzaralibani.com/api',
   headers:{
     Authorization : localStorage.getItem('token')
   }
