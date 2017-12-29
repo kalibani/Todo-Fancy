@@ -19,8 +19,8 @@ let todoSchema = new Schema({
     created: Date
   },
   status:{
-    type: Boolean,
-    default: false
+    type: String,
+    default: 'Uncompleted'
   }
 })
 
@@ -74,12 +74,21 @@ class TodoModel {
 
   static updateTodo(req, res) {
     Todo.findById(req.params.id).then((Todo) => {
-      Todo.status = !Todo.status
-      Todo.save().then((updatedTodo) => {
-        res.json({message: 'Succesfully Updated Todo', updatedTodo})
-      }).catch((err) => {
-        res.send(err)
-      })
+      if (Todo.status=='Completed') {
+        Todo.status='Uncompleted'
+        Todo.save().then((updatedTodo) => {
+          res.json({message: 'Succesfully Updated Todo', updatedTodo})
+        }).catch((err) => {
+          res.send(err)
+        })
+      }else {
+        Todo.status = 'Completed'
+        Todo.save().then((updatedTodo) => {
+          res.json({message: 'Succesfully Updated Todo', updatedTodo})
+        }).catch((err) => {
+          res.send(err)
+        })
+      }
     }).catch((err) => {
       res.send(err);
     })
